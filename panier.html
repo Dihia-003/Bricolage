@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Votre panier</h1>
+    <div id="panier"></div>
+    <script>
+        const produit = JSON.parse(localStorage.getItem('panier'));
+        if (produit) {
+            const total = produit.quantite * produit.prix;
+            document.getElementById('panier').innerHTML = `
+               <p>Produit: ${produit.nom}</p>
+                <p>Prix unitaire: ${produit.prix}€</p>
+                <p>Quantité: ${produit.quantite}</p>
+                <p>Total: ${total}€</p>
+            `;
+        } else {
+            document.getElementById('panier').innerHTML = `<p>Votre panier est vide.</p>`;
+        }
+    </script>
+</body>
+</html>

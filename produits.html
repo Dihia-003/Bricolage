@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page produits</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="produit"> </div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const nom = params.get('nom');
+        const prix = params.get('prix');
+        const image = params.get('image');
+
+        const description = {
+            "Marteau": "Un outil essentiel pour tout bricoleur.",
+            "Perceuse": "Idéale pour percer des trous dans divers matériaux.",
+            "Scie": "Parfaite pour couper du bois et d'autres matériaux."
+
+        };
+
+        document.getElementById('produit').innerHTML = `
+        <img src="${image}" alt="${nom}" >
+        <h2>${nom}</h2>
+        <p>Prix : ${prix}€</p>
+        <p>${description[nom]}</p>
+      <label>Quantité :
+        <select id="quantite">
+           ${[...Array(10).keys()].map(i => `<option value="${i+1}">${i+1}</option>`).join('')}
+        </select>
+        </label>
+        <br><br>
+        <button onclick= "AjouterAuPanier()">Ajouter au panier</button>
+        `;
+
+        function AjouterAuPanier() {
+            const quantite = document.getElementById('quantite').value;
+           const produit ={
+            nom,
+            prix : parseFloat(prix),
+            quantite : parseInt(quantite),
+           };
+            localStorage.setItem('panier', JSON.stringify(produit));
+            window.location.href = 'panier.html';       
+           }
+        
+    </script>
+</body>
+</html>
